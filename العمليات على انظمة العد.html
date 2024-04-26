@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>تحويل أنظمة العد</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+        body{
+      margin: 0;
+      background: linear-gradient(to right ,rgb(170, 170, 170),black);
+    }
+    .container1{
+      place-items: center;
+      display: grid;
+      justify-content: center;
+      width: 100%;
+      height: 200px;
+      margin-top: 100px;
+    }
+    input{
+      border-radius: 5px;
+      border-width: 0;
+    }
+    select{
+      border-radius: 5px;
+      border-width: 0;
+    }
+    #calculateButton{
+      border-radius: 5px;
+      border-width: 0;
+      transition: background 2s ease;
+    }
+    input:focus{
+      border: 0;
+      outline: none;
+      text-align: center;
+    }
+    button{
+      cursor: unset;
+    }
+      </style>
+    </head>
+    <body>
+      <a href="تطبيق الاعداد.html"><button id="btn">عودة</button></a>
+      <div class="container1"><h1>العمليات على انظمة العد</h1>
+      <label for="inputNumber1">الرقم 1:</label>
+      <input type="number" id="inputNumber1">
+        <br>
+      <label for="inputNumber2">الرقم 2:</label>
+      <input type="number" id="inputNumber2">
+        <br>
+      <label for="baseSelect">نظام العد:</label>
+      <select id="baseSelect">
+        <option value="10">عشري</option>
+        <option value="2">ثنائي</option>
+        <option value="8">ثماني</option>
+        <option value="16">سداسي عشري</option>
+      </select>
+      <br>
+      <label for="operationSelect">العملية:</label>
+      <select id="operationSelect">
+        <option value="add">جمع</option>
+        <option value="subtract">طرح</option>
+        <option value="multiply">ضرب</option>
+        <option value="divide">قسمة</option>
+      </select>
+      <br>
+      <button id="calculateButton">احسب</button>
+
+      <p id="result"></p>
+    </div>
+      
+
+      <script>
+    const inputNumber1 = document.getElementById('inputNumber1');
+    const inputNumber2 = document.getElementById('inputNumber2');
+    const baseSelect = document.getElementById('baseSelect');
+    const operationSelect = document.getElementById('operationSelect');
+    const calculateButton = document.getElementById('calculateButton');
+    const result = document.getElementById('result');
+
+    calculateButton.addEventListener('click', () => {
+      const number1 = inputNumber1.value;
+      const number2 = inputNumber2.value;
+      const base = parseInt(baseSelect.value);
+      const operation = operationSelect.value;
+
+      let resultValue;
+
+      // تحويل الأرقام إلى النظام العشري إذا لزم الأمر
+      const decimalNumber1 = convertToDecimal(number1, base);
+      const decimalNumber2 = convertToDecimal(number2, base);
+
+      // تنفيذ العملية بناءً على الاختيار
+      switch (operation) {
+        case 'convert':
+          resultValue = decimalToBase(decimalNumber1, base);
+          break;
+        case 'add':
+          resultValue = decimalToBase(decimalNumber1 + decimalNumber2, base);
+          break;
+        case 'subtract':
+          resultValue = decimalToBase(decimalNumber1 - decimalNumber2, base);
+          break;
+        case 'multiply':
+          resultValue = decimalToBase(decimalNumber1 * decimalNumber2, base);
+          break;
+        case 'divide':
+          resultValue = decimalToBase(decimalNumber1 / decimalNumber2, base);
+          break;
+      }
+
+      result.textContent = resultValue;
+    });
+
+    // دوال التحويل
+    function convertToDecimal(number, base) {
+      return parseInt(number, base);
+    }
+
+    function decimalToBase(number, base) {
+      if (base === 10) {
+        return number.toString();
+      } else {
+        return number.toString(base).toUpperCase();
+      }
+    }
+      </script>
+    </body>
+    </html
